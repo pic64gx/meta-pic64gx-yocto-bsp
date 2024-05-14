@@ -1,6 +1,6 @@
-# Microchip PolarFire SoC Issue Template
+# Microchip PIC64GX Issue Template
 
-[discussion-forum]: https://github.com/polarfire-soc/polarfire-soc-documentation/discussions
+[discussion-forum]: https://github.com/pic64gx/pic64gx-documentation/discussions
 
 ## Checklist
 

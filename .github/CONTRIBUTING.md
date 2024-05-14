@@ -1,10 +1,10 @@
-# Microchip PolarFire SoC Contributing Guidelines
+# Microchip PIC64GX SoC Contributing Guidelines
 
 [fork]: /fork
 [pr]: /compare
 [style]: https://standardjs.com/
 [code-of-conduct]: CODE_OF_CONDUCT.md
-[discussion-forum]: https://github.com/polarfire-soc/polarfire-soc-documentation/discussions
+[discussion-forum]: https://github.com/pic64gx/pic64gx-documentation/discussions
 
 Hi there! We're thrilled that you'd like to contribute to this project. Your help is essential for keeping it great.
 
