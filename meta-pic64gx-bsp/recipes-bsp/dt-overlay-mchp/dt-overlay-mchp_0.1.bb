@@ -18,7 +18,7 @@ S = "${WORKDIR}/git"
 DT_FILES_PATH = "${WORKDIR}/git/pic64gx_curiosity_kit"
 
 PV = "1.0+git${SRCPV}"
-SRCREV="53592f188bbb9dfe67c85b272f27acd9a9e54c7c"
+SRCREV="linux4microchip+fpga-2024.06-rc1"
 SRC_URI="git://github.com/linux4microchip/dt-overlay-mchp.git;protocol=https;nobranch=1 \
 "
 
