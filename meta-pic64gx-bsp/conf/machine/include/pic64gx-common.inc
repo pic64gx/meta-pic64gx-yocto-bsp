@@ -15,8 +15,8 @@ KBUILD_DEFCONFIG ?= "pic64gx_defconfig"
 PREFERRED_PROVIDER_virtual/kernel ?= "pic64gx-linux"
 PREFERRED_VERSION_openocd-native = "riscv"
 PREFERRED_VERSION_openocd = "riscv"
-PREFERRED_PROVIDER_virtual/bootloader = "u-boot-pic64gx"
-PREFERRED_PROVIDER_u-boot = "u-boot-pic64gx"
+PREFERRED_PROVIDER_virtual/bootloader = "u-boot-mchp"
+PREFERRED_PROVIDER_u-boot = "u-boot-mchp"
 
 UBOOT_ENTRYPOINT = "0x80200000"
 UBOOT_DTB_LOADADDRESS = "0x8a000000"
@@ -37,5 +37,5 @@ WIC_CREATE_EXTRA_ARGS ?= "--no-fstab-update"
 WKS_FILE_DEPENDS ?= " \
     e2fsprogs-native \
     bmap-tools-native \
-    u-boot-pic64gx \
+    u-boot-mchp \
 "

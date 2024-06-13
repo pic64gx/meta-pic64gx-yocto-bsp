@@ -197,7 +197,7 @@ MACHINE=<MACHINE> bitbake pic64gx-linux -c diffconfig
 **Available BSP recipes:**
 
 - hss (Microchip Hart Software Services) payload generator
-- u-boot-pic64gx (PIC64GX U-Boot)
+- u-boot-mchp (Microchip U-Boot)
 - pic64gx-linux (Linux Kernel for PIC64GX)
 
 **Available commands:**
