@@ -228,14 +228,14 @@ This document assumes you are running on a modern Linux system. The process docu
 Debian 11 and have been reported to work with WSL2 on Windows 11.
 It should also work with other Linux distributions if the equivalent prerequisite packages are installed.
 
-The BSP uses the Yocto RISCV Architecture Layer, and the Yocto release Kirkstone (Revision 4.0.18) (Released April 2024).
+The BSP uses the Yocto RISCV Architecture Layer, and the Yocto release Kirkstone (Revision 4.0.19) (Released June 2024).
 
 **Make sure to install the [repo utility](https://source.android.com/setup/develop#installing-repo) first.**
 
-Detailed instructions for various distributions can be found in the ["Required Packages for the Build Host"](https://docs.yoctoproject.org/4.0.18/ref-manual/system-requirements.html#required-packages-for-the-build-host) section in the Yocto Project Reference Manual.
+Detailed instructions for various distributions can be found in the ["Required Packages for the Build Host"](https://docs.yoctoproject.org/4.0.19/ref-manual/system-requirements.html#required-packages-for-the-build-host) section in the Yocto Project Reference Manual.
 
 ```bash
-**Note: Some extra packages are requried to support the Yocto 4.0.18 Release (codename “kirkstone”) compared to the prior release.**
+**Note: Some extra packages are requried to support the Yocto 4.0.19 Release (codename “kirkstone”) compared to the prior release.**
 ```
 
 <a name="OtherDeps"></a>
