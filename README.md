@@ -74,9 +74,6 @@ For instructions on how to copy the image to the eMMC or SD card refer to the [C
 
 ### Copy the created Disk Image to flash device (USB mmc flash/SD/uSD)
 
-> Be very careful while picking /dev/sdX device! Look at dmesg, lsblk, GNOME Disks, etc. before and after plugging in your usb flash device/uSD/SD to find a proper device. Double check it to avoid overwriting any of system disks/partitions!
->
-
 We recommend using the `bmaptool` utility to program the storage device. `bmaptool` is a generic tool for creating the block map (bmap) for a file and copying files using this block map. Raw system image files can be flashed a lot faster with bmaptool than with traditional tools, like "dd" or "cp".
 
 The created disk image is a 'wic' file, and is located in `yocto-dev/build/tmp-glibc/deploy/images/<MACHINE>/` directory,
@@ -85,10 +82,15 @@ e.g., for pic64gx-dev-cli image and machine pic64-gx-curiosity-kit, it will be l
 
 `yocto-dev/build/tmp-glibc/deploy/images/pic64-gx-curiosity-kit/pic64gx-dev-cli-pic64-gx-curiosity-kit.wic`.
 
+Navigate to the build directory and flash the image using `bmaptool` command:
+
 ```bash
 cd yocto-dev/build
-bmaptool copy tmp-glibc/deploy/images/pic64-gx-curiosity-kit/pic64gx-dev-cli-pic64-gx-curiosity-kit.wic /dev/sdX
+sudo bmaptool copy tmp-glibc/deploy/images/pic64-gx-curiosity-kit/pic64gx-dev-cli-pic64-gx-curiosity-kit.wic /dev/sdX
 ```
+
+> Replace sdX with your drive identifier. Be very careful while picking /dev/sdX device! Look at dmesg, lsblk, GNOME Disks, etc. before and after plugging in your usb flash device/uSD/SD to find a proper device. Double check it to avoid overwriting any of system disks/partitions!
+>
 
 The wic image uses a GUID Partition Table (GPT). GPT stores its primary GPT header at the start of the storage device, and a secondary GPT header at the end of the device.  The wic creation scripts do not correctly place this secondary GPT header at the current time.  To avoid later warnings about the GPT secondary header location, open the device with fdisk at this stage and rewrite the partition table:
 
