@@ -6,7 +6,10 @@ KERNEL_VERSION_SANITY_SKIP="1"
 SRCREV="linux4microchip+fpga-2024.09.1"
 SRC_URI = "git://github.com/linux4microchip/linux.git;protocol=https;nobranch=1"
 
-SRC_URI:append:pic64gx-curiosity-kit =  " file://pic64gx_cmdline.cfg "
+SRC_URI:append:pic64gx-curiosity-kit = " \
+					file://pic64gx_cmdline.cfg \
+					file://pic64gx_v4l2.cfg \
+					"
 SRC_URI:append:pic64gx-curiosity-kit-amp =  " \
     file://pic64gx_amp_cmdline.cfg \
     "
