@@ -16,6 +16,7 @@ S = "${WORKDIR}/git"
 
 EXAMPLE_FILES:pic64gx-curiosity-kit = "\
     dt-overlays \
+    multimedia \
     "
 
 EXAMPLE_FILES:pic64gx-curiosity-kit-amp = "\
