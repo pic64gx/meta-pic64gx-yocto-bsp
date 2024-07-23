@@ -21,7 +21,7 @@ Before continuing, ensure that the prerequisite packages are present on your sys
 It might be required for you to switch shell to bash, there is a known issue
 with zsh
 ```bash
-$ chsh -s /bin/bash
+chsh -s /bin/bash
 ```
 
 ### Create the Workspace
@@ -29,8 +29,8 @@ $ chsh -s /bin/bash
 This needs to be done every time you want a clean setup based on the latest BSP.
 
 ```bash
-$ mkdir yocto-dev && cd yocto-dev
-$ repo init -u https://github.com/pic64gx/pic64gx-yocto-manifests.git -b main -m default.xml
+mkdir yocto-dev && cd yocto-dev
+repo init -u https://github.com/pic64gx/pic64gx-yocto-manifests.git -b main -m default.xml
 ```
 
 ### Update the repo workspace
@@ -285,7 +285,7 @@ Listen uses inotify by default on Linux to monitor directories for changes. It's
 You can get your current inotify file watch limit by executing:
 
 ```bash
-$ cat /proc/sys/fs/inotify/max_user_watches
+cat /proc/sys/fs/inotify/max_user_watches
 ```
 
 When this limit is not enough to monitor all files inside a directory, the limit must be increased for Listen to work properly.
