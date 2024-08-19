@@ -3,7 +3,7 @@
 #
 
 # First, we can optionally set a name for our image, otherwise one will be created dynamically
-set-name: 'PIC64GX-SoC-HSS::Linux + ${AMP_DEMO} AMP'
+set-name: 'PIC64GX-SoC-HSS::Linux + <AMP_DEMO> AMP'
 
 #
 # Next, we'll define the entry point addresses for each hart, as follows:
