@@ -10,7 +10,7 @@ KERNEL_CLASSES = "kernel-fitimage"
 KERNEL_IMAGETYPE = "fitImage"
 EXTERNAL_KERNEL_DEVICETREE = "${DEPLOY_DIR_IMAGE}/overlays"
 
-KBUILD_DEFCONFIG ?= "pic64gx_defconfig"
+KBUILD_DEFCONFIG ?= "mpfs_defconfig"
 
 PREFERRED_PROVIDER_virtual/kernel ?= "pic64gx-linux"
 PREFERRED_VERSION_openocd-native = "riscv"

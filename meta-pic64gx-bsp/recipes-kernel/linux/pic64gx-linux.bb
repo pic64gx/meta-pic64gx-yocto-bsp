@@ -3,8 +3,8 @@ require recipes-kernel/linux/pic64gx-linux-common.inc
 LINUX_VERSION ?= "6.6"
 KERNEL_VERSION_SANITY_SKIP="1"
 
-SRCREV="03429e1b25d512b82557069e6f70fabd242cc9e3"
-SRC_URI = "git://github.com/pic64gx/pic64gx-linux.git;protocol=https;nobranch=1"
+SRCREV="linux4microchip+fpga-2024.09.1"
+SRC_URI = "git://github.com/linux4microchip/linux.git;protocol=https;nobranch=1"
 
 SRC_URI:append:pic64gx-curiosity-kit =  " file://pic64gx_cmdline.cfg "
 SRC_URI:append:pic64gx-curiosity-kit-amp =  " \
