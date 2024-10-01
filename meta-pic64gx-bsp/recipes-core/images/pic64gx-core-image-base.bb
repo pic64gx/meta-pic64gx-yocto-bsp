@@ -15,6 +15,7 @@ IMAGE_INSTALL = "\
     util-linux \
     wget \
     kernel-modules \
+    can-utils \
     "
 
 # Do not pollute the initrd image with rootfs features
