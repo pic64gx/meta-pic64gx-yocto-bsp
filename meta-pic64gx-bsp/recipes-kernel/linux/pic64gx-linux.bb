@@ -9,8 +9,11 @@ SRC_URI = "git://github.com/pic64gx/pic64gx-linux.git;protocol=https;nobranch=1"
 SRC_URI:append:pic64gx-curiosity-kit =  " file://pic64gx_cmdline.cfg "
 SRC_URI:append:pic64gx-curiosity-kit-amp =  " \
     file://pic64gx_amp_cmdline.cfg \
-    file://0001-riscv-dts-microchip-add-AMP-support-to-pic64gx-curio.patch \
     "
+
+do_assemble_fitimage[depends] = "${@'dt-overlay-mchp:do_deploy' \
+                                  if "pic64gx-curiosity-kit-amp" in d.getVar('MACHINE') \
+                                  else ''}"
 
 do_deploy:append() {
 

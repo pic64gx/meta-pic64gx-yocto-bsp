@@ -1,0 +1,129 @@
+From 8ec711afa7a934233023a2861abde693ea6810f5 Mon Sep 17 00:00:00 2001
+From: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
+Date: Mon, 7 Oct 2024 11:46:49 +0100
+Subject: [PATCH 1/2] pic64gx_curiosity_kit: add amp overlay
+
+Add initial AMP overlay for PIC64GX curiosity kit
+
+Signed-off-by: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
+---
+ Makefile                                      |  5 +-
+ .../pic64gx_curiosity_kit_amp.dtso            | 76 +++++++++++++++++++
+ 2 files changed, 80 insertions(+), 1 deletion(-)
+ create mode 100644 pic64gx_curiosity_kit/pic64gx_curiosity_kit_amp.dtso
+
+diff --git a/Makefile b/Makefile
+index e33e2b0..2e4da24 100644
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@ DTC_OPTIONS += -Wno-unit_address_vs_reg -Wno-graph_child_address -Wno-pwms_prope
+ KERNEL_DIR?=../linux
+ KERNEL_BUILD_DIR?=$(shell realpath --relative-to=. $(KERNEL_DIR))
+ DTC?=$(KERNEL_BUILD_DIR)/scripts/dtc/dtc
+-BDIR?=sam9x60ek sama5d29_curiosity sama5d27_som1_ek sama5d27_wlsom1_ek sama5d2_icp sama5d2_ptc_ek sama5d2_xplained sama5d2_xplained_grts sama5d3_xplained sama5d3_eds sama5d4_xplained sama7g5ek sama7g54_curiosity sam9x60_curiosity sam9x75eb mpfs_icicle mpfs_icicle_amp mpfs_video
++BDIR?=sam9x60ek sama5d29_curiosity sama5d27_som1_ek sama5d27_wlsom1_ek sama5d2_icp sama5d2_ptc_ek sama5d2_xplained sama5d2_xplained_grts sama5d3_xplained sama5d3_eds sama5d4_xplained sama7g5ek sama7g54_curiosity sam9x60_curiosity sam9x75eb mpfs_icicle mpfs_icicle_amp mpfs_video pic64gx_curiosity_kit
+ 
+ # workaround to make mkimage use the same dtc as we do
+ PATH:=$(shell dirname $(DTC)):$(PATH)
+@@ -14,6 +14,7 @@ AT91SAM9X5EK_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard at91sam9x5ek/*.d
+ MPFS_ICICLE_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard mpfs_icicle/*.dtso))
+ MPFS_ICICLE_AMP_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard mpfs_icicle_amp/*.dtso))
+ MPFS_VIDEO_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard mpfs_video/*.dtso))
++PIC64GX_CURIOSITY_KIT_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard pic64gx_curiosity_kit/*.dtso))
+ SAM9X60EK_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard sam9x60ek/*.dtso))
+ SAM9X60_CURIOSITY_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard sam9x60_curiosity/*.dtso))
+ SAM9X75EB_DTBO_OBJECTS:= $(patsubst %.dtso,%.dtbo,$(wildcard sam9x75eb/*.dtso))
+@@ -48,6 +49,8 @@ mpfs_icicle_amp_dtbos: $(MPFS_ICICLE_AMP_DTBO_OBJECTS)
+ 
+ mpfs_video_dtbos: $(MPFS_VIDEO_DTBO_OBJECTS)
+ 
++pic64gx_curiosity_kit_dtbos: $(PIC64GX_CURIOSITY_KIT_DTBO_OBJECTS)
++
+ sam9x60ek_dtbos: $(SAM9X60EK_DTBO_OBJECTS)
+ 
+ sam9x60_curiosity_dtbos: $(SAM9X60_CURIOSITY_DTBO_OBJECTS)
+diff --git a/pic64gx_curiosity_kit/pic64gx_curiosity_kit_amp.dtso b/pic64gx_curiosity_kit/pic64gx_curiosity_kit_amp.dtso
+new file mode 100644
+index 0000000..d54e666
+--- /dev/null
++++ b/pic64gx_curiosity_kit/pic64gx_curiosity_kit_amp.dtso
+@@ -0,0 +1,76 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Device Tree Overlay Example for Asymmetric Multiprocessing (AMP)
++ *
++ * Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
++ * Author: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
++ *
++ */
++
++/dts-v1/;
++/plugin/;
++
++/ {
++	compatible = "microchip,pic64gx-curiosity-kit", "microchip,pic64gx";
++};
++
++&{/} {
++	reserved-memory {
++
++		#address-cells = <2>;
++		#size-cells = <2>;
++
++		contextb_reserved: contextb_reserved@91c00000 {
++			reg = <0x0 0x91c00000 0x0 0x100000>;
++			no-map;
++		};
++
++		vdev0vring0: vdev0vring0@91d00000 {
++			reg = <0x0 0x91d00000 0x0 0x8000>;
++			no-map;
++		};
++
++		vdev0vring1: vdev0vring1@91d08000 {
++			reg = <0x0 0x91d08000 0x0 0x8000>;
++			no-map;
++		};
++
++		vdev0buffer: vdev0buff@91d10000 {
++			compatible = "shared-dma-pool";
++			reg = <0x0 0x91d10000 0x0 0x40000>;
++			no-map;
++		};
++
++		rsctable: rsc-table@91d50000 {
++			reg = <0x0 0x91d50000 0x0 0x1000>;
++			no-map;
++		};
++	};
++
++	ihc: mailbox {
++		compatible = "microchip,sbi-ipc";
++		interrupt-parent = <&plic>;
++		interrupts = <180>, <179>, <178>;
++		interrupt-names = "hart-1", "hart-2", "hart-3";
++		#mbox-cells = <1>;
++		status = "okay";
++	};
++
++	rproc_contextb: remote-context {
++		compatible = "microchip,ipc-remoteproc";
++		memory-region = <&vdev0buffer>, <&rsctable>,
++				<&contextb_reserved>, <&vdev0vring0>,
++				<&vdev0vring1>;
++		mboxes= <&ihc 8>;
++		status = "okay";
++	};
++};
++
++&cpu4 {
++	status = "disabled"; // in use by context b
++};
++
++&mmuart2 {
++	status = "disabled"; // in use by context b
++};
++
+-- 
+2.30.2
+

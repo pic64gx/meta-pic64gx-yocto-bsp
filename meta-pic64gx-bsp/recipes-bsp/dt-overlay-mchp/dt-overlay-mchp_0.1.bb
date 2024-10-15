@@ -18,8 +18,10 @@ S = "${WORKDIR}/git"
 DT_FILES_PATH = "${WORKDIR}/git/pic64gx_curiosity_kit"
 
 PV = "1.0+git${SRCPV}"
-SRCREV="linux4microchip+fpga-2024.06-rc1"
+SRCREV="linux4microchip+fpga-2024.09"
 SRC_URI="git://github.com/linux4microchip/dt-overlay-mchp.git;protocol=https;nobranch=1 \
+    file://0001-pic64gx_curiosity_kit-add-amp-overlay.patch \
+    file://0002-pic64gx_curiosity_kit-add-initial-its-file.patch \
 "
 
 do_install() {
