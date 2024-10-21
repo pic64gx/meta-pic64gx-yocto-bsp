@@ -12,34 +12,28 @@ DEPENDS = "collectd libgpiod  python3-flask"
 inherit systemd
 
 PV = "1.0+git${SRCPV}"
-SRCREV="67c29c5248d1c8245873583d0aaa319ad915c87d"
+SRCREV="3b7b5d7f0f688a4bc66425b01ef5ab0801e4889c"
 SRC_URI = "git://github.com/pic64gx/pic64gx-linux-examples.git;protocol=https;nobranch=1 \
-	"
+          "
 
 S = "${WORKDIR}/git"
 
 EXAMPLE_FILES:pic64gx-curiosity-kit = "\
-    dma \
     dt-overlays \
-    system-services \
-    pdma \
     "
 
 EXAMPLE_FILES:pic64gx-curiosity-kit-amp = "\
-    dma \
     dt-overlays \
-    system-services \
-    pdma \
     amp/rpmsg-pingpong \
     amp/rpmsg-tty-example \
     "
 
 do_compile() {
-  for i in ${EXAMPLE_FILES}; do
-    if [ -f ${S}/$i/Makefile ]; then
-      oe_runmake -C ${S}/$i
-    fi
-  done
+    for i in ${EXAMPLE_FILES}; do
+        if [ -f ${S}/$i/Makefile ]; then
+        oe_runmake -C ${S}/$i
+        fi
+    done
 }
 
 INSANE_SKIP_${PN} += "file-rdeps"
@@ -49,13 +43,13 @@ INSANE_SKIP:${PN}-dev = "ldflags"
 SECURITY_CFLAGS = ""
 
 do_install() {
-  install -d ${D}/opt/microchip
-  chmod a+x ${D}/opt/microchip
+    install -d ${D}/opt/microchip
+    chmod a+x ${D}/opt/microchip
 
-  for i in ${EXAMPLE_FILES}; do
-    install -d ${D}/opt/microchip/`dirname $i`/`basename $i`
-    cp -rfd ${S}/$i ${D}/opt/microchip/`dirname $i`
-    done
+    for i in ${EXAMPLE_FILES}; do
+        install -d ${D}/opt/microchip/`dirname $i`/`basename $i`
+        cp -rfd ${S}/$i ${D}/opt/microchip/`dirname $i`
+        done
 }
 
 FILES:${PN} += "/opt/microchip/"
