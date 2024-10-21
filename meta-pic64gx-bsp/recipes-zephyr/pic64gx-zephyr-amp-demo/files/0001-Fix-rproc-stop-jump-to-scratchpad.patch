@@ -1,0 +1,36 @@
+From 70c98e3bcc036c61e71f2bac82106ee8f0f251a7 Mon Sep 17 00:00:00 2001
+From: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
+Date: Fri, 2 Aug 2024 15:37:26 +0100
+Subject: [PATCH] Fix rproc stop jump to scratchpad
+
+Signed-off-by: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
+---
+ apps/amp_example/src/remoteproc/remoteproc.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/apps/amp_example/src/remoteproc/remoteproc.c b/apps/amp_example/src/remoteproc/remoteproc.c
+index df0cba1..48b789b 100644
+--- a/apps/amp_example/src/remoteproc/remoteproc.c
++++ b/apps/amp_example/src/remoteproc/remoteproc.c
+@@ -28,7 +28,7 @@
+ #endif
+ 
+ typedef void (*func_t)(void);
+-extern const uint64_t __SCRATCHPAD_start;
++extern const uintptr_t __SCRATCHPAD_start;
+ 
+ enum miv_rp_mbox_messages {
+     MIV_RP_MBOX_READY = 0xFFFFFF00,
+@@ -87,6 +87,7 @@ void rproc_stop(uint32_t channel)
+     }
+ 
+     // use that trick to call the function in the scratchpad with -mo-pie activated
+-    __asm__ volatile ("jalr ra, 0(%0)\n\t"
+-    :: "r" (__SCRATCHPAD_start):"ra");
++    __asm__ volatile (
++        "jalr ra, 0(%0)\n\t"
++    :: "r" (&__SCRATCHPAD_start):"ra");
+ }
+-- 
+2.30.2
+
