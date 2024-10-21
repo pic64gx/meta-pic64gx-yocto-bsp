@@ -1,6 +1,6 @@
 
 EXTRA_IMAGE_FEATURES += " \
-      tools-debug \      
+      tools-debug \
       tools-sdk"
 
 IMAGE_INSTALL = "\
@@ -13,6 +13,7 @@ IMAGE_INSTALL = "\
     iproute2 \
     devmem2 \
     can-utils \
+    pic64gx-soc-linux-examples \
     libgpiod \
     libgpiod-tools \
     i2c-tools \

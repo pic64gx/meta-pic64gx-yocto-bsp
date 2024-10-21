@@ -7,6 +7,7 @@ DEPENDS += "virtual/bootloader"
 IMAGE_INSTALL = "\
     packagegroup-core-boot \
     packagegroup-base \
+    pic64gx-soc-linux-examples \
     python3 \
     rng-tools \
     i2c-tools \

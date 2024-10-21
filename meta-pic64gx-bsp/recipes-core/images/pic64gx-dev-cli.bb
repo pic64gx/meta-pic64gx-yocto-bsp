@@ -14,6 +14,7 @@ IMAGE_INSTALL = "\
     packagegroup-base \
     packagegroup-core-boot \
     packagegroup-core-full-cmdline \
+    pic64gx-soc-linux-examples \
     coremarkpro \
     libgpiod \
     libgpiod-tools \
