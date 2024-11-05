@@ -27,10 +27,8 @@ ZEPHYR_SRC_DIR = "${WORKDIR}/git/pic64gx-soc/apps/amp_example"
 
 ZEPHYR_MODULES:append = "${S}/modules/lib/rpmsg-lite\;"
 
-ALLOWED_AMP_DEMO = "zephyr"
-
 do_install() {
-    if [[ "${ALLOWED_AMP_DEMO}" =~ "${AMP_DEMO}" ]]; then
+    if [ "${AMP_DEMO}" = "zephyr" ]; then
         install -d ${D}${nonarch_base_libdir}/firmware
         install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${D}${nonarch_base_libdir}/firmware/rproc-remote-context-fw
     else
