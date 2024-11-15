@@ -1,7 +1,7 @@
-From a02294a0c41d10d953b44ef5df851a8a7d8b4226 Mon Sep 17 00:00:00 2001
+From cacda8a277158a5683d8d3568556b87bce7b7422 Mon Sep 17 00:00:00 2001
 From: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
 Date: Fri, 18 Oct 2024 23:33:40 +0100
-Subject: [PATCH 3/3] riscv: Add AMP support to PIC64GX
+Subject: [PATCH] riscv: Add AMP support to PIC64GX
 
 Uart 2 and CPU 4 need to be disable, because they are used by context B
 
@@ -15,18 +15,18 @@ Signed-off-by: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
  create mode 100644 configs/microchip_pic64gx_curiosity_kit_amp_defconfig
 
 diff --git a/arch/riscv/dts/Makefile b/arch/riscv/dts/Makefile
-index 071626be55..eafe65b10b 100644
+index 54c2768695..d635651440 100644
 --- a/arch/riscv/dts/Makefile
 +++ b/arch/riscv/dts/Makefile
-@@ -9,7 +9,7 @@ microchip-mpfs-icicle-kit-amp.dtb microchip-mpfs-icicle-kit-qspi-nor.dtb
+@@ -8,7 +8,7 @@ dtb-$(CONFIG_TARGET_MICROCHIP_ICICLE) += microchip-mpfs-icicle-kit.dtb \
+ microchip-mpfs-icicle-kit-amp.dtb microchip-mpfs-icicle-kit-qspi-nor.dtb
  dtb-$(CONFIG_TARGET_MICROCHIP_DISCOKIT) += microchip-mpfs-disco-kit.dtb
- dtb-$(CONFIG_TARGET_MICROCHIP_VIDEOKIT) += microchip-mpfs-video-kit.dtb
  dtb-$(CONFIG_TARGET_MICROCHIP_PIC64GX_CURIOSITY) += \
 -pic64gx-curiosity-kit.dtb
 +pic64gx-curiosity-kit.dtb pic64gx-curiosity-kit-amp.dtb
+ dtb-$(CONFIG_TARGET_MICROCHIP_VIDEOKIT) += microchip-mpfs-video-kit.dtb
  dtb-$(CONFIG_TARGET_SUNDANCEDSP_POLARBERRY) += mpfs-polarberry.dtb
  dtb-$(CONFIG_TARGET_QEMU_VIRT) += qemu-virt32.dtb qemu-virt64.dtb
- dtb-$(CONFIG_TARGET_OPENPITON_RISCV64) += openpiton-riscv64.dtb
 diff --git a/arch/riscv/dts/pic64gx-curiosity-kit-amp.dts b/arch/riscv/dts/pic64gx-curiosity-kit-amp.dts
 new file mode 100644
 index 0000000000..b2e5387d72

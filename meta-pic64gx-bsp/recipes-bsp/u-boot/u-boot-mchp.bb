@@ -9,26 +9,17 @@ DEPENDS += "coreutils-native"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=2ca5f2c35c8cc335f0a19756634782f1"
 
 PV = "2023.07+git${SRCPV}"
-SRCREV = "f3858c18fa163210ebcb95d44e2ab181a234cdf0"
+SRCREV = "a59e2fac9bba738c9d0ca0d10a275ffabd29a406"
 SRC_URI = "git://github.com/linux4microchip/u-boot-mchp.git;protocol=https;nobranch=1  \
            file://${HSS_PAYLOAD}.yaml \
            file://${UBOOT_ENV}.cmd \
            file://${MACHINE}.cfg \
            file://uEnv.txt \
-           file://0001-dt-bindings-clk-add-missing-clk-ids-for-microchip-mp.patch \
-           file://0002-riscv-Add-support-for-the-PIC64GX-Curiosity-Kit-boar.patch \
-           file://0003-riscv-Add-AMP-support-to-PIC64GX.patch \
            "
 
-SRC_URI:append:pic64gx-curiosity-kit = "file://${UBOOT_ENV}.cmd \
-                                file://${MACHINE}.cfg \
-                                file://uEnv.txt \
-                                "
-
-SRC_URI:append:pic64gx-curiosity-kit-amp = "file://${UBOOT_ENV}.cmd \
-                                     file://${MACHINE}.cfg \
-                                     file://uEnv.txt \
-                                    "
+SRC_URI:append:pic64gx-curiosity-kit-amp = " \
+    file://0001-riscv-Add-AMP-support-to-PIC64GX.patch \
+    "
 
 DEPENDS += " python3-setuptools-native u-boot-mkenvimage-native"
 DEPENDS:append = " u-boot-tools-native hss-payload-generator-native"
