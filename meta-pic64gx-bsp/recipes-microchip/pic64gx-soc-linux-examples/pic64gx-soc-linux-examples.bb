@@ -1,9 +1,5 @@
 SUMMARY = "PIC64gx SoC Linux example applications"
-DESCRIPTION = "Linux Example applications, includes the following \
--iiohttpserver collects ADC measurements and displays them via a webserver.\
--LSRAM read and write example.\
--UIO DMA interrupt example. \
-"
+DESCRIPTION = "Linux Example applications"
 
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=06ec214e9fafe6d4515883d77674a453"
