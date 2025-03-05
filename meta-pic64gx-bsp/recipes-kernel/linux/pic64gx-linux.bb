@@ -3,7 +3,7 @@ require recipes-kernel/linux/pic64gx-linux-common.inc
 LINUX_VERSION ?= "6.6"
 KERNEL_VERSION_SANITY_SKIP="1"
 
-SRCREV="linux4microchip+fpga-2024.09.1"
+SRCREV="linux4microchip+fpga-2025.03"
 SRC_URI = "git://github.com/linux4microchip/linux.git;protocol=https;nobranch=1"
 
 SRC_URI:append:pic64gx-curiosity-kit = " \
