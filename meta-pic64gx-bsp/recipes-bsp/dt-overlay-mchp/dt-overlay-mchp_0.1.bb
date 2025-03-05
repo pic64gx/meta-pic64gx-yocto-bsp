@@ -18,7 +18,7 @@ S = "${WORKDIR}/git"
 DT_FILES_PATH = "${WORKDIR}/git/pic64gx_curiosity_kit"
 
 PV = "1.0+git${SRCPV}"
-SRCREV="dd16c9fc6abef99e79937e29e3ae753c32219dae"
+SRCREV="linux4microchip+fpga-2025.03"
 SRC_URI="git://github.com/linux4microchip/dt-overlay-mchp.git;protocol=https;nobranch=1"
 
 do_install() {
