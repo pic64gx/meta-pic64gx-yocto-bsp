@@ -8,7 +8,7 @@ DEPENDS = "collectd libgpiod  python3-flask"
 inherit systemd
 
 PV = "1.0+git${SRCPV}"
-SRCREV="3b7b5d7f0f688a4bc66425b01ef5ab0801e4889c"
+SRCREV="ff749ffb982b601f2cc99a53566511711dca65f5"
 SRC_URI = "git://github.com/pic64gx/pic64gx-linux-examples.git;protocol=https;nobranch=1 \
           "
 
