@@ -23,7 +23,7 @@ SRC_URI:append:pic64gx-curiosity-kit-amp = " \
 
 DEPENDS += " python3-setuptools-native u-boot-mkenvimage-native"
 DEPENDS:append = " u-boot-tools-native hss-payload-generator-native"
-DEPENDS:append:pic64gx-curiosity-kit-amp = " pic64gx-zephyr-amp-demo"
+DEPENDS:append:pic64gx-curiosity-kit-amp = " pic64gx-zephyr-amp-demo-hss"
 
 do_deploy:append () {
 

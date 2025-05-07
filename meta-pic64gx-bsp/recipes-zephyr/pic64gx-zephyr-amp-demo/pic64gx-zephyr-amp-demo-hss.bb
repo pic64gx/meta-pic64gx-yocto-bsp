@@ -1,5 +1,5 @@
-SUMMARY = "PIC64GX zephyr exemple with OpenAMP"
-DESCRIPTION = "PIC64GX zephyr exemple with OpenAMP"
+SUMMARY = "PIC64GX zephyr exemple with OpenAMP started by bootloader"
+DESCRIPTION = "PIC64GX zephyr exemple with OpenAMP started by bootloader"
 
 require recipes-zephyr/pic64gx-zephyr-amp-demo/pic64gx-zephyr-amp.inc
 
@@ -12,19 +12,14 @@ SRC_URI:append = " ${SRC_URI_APP};name=pic64-zephyr-examples;nobranch=1;destsuff
 
 ZEPHYR_SRC_DIR = "${WORKDIR}/git/pic64gx-soc/apps/amp_example_openamp"
 
-do_install() {
-    if [ "${AMP_DEMO}" = "zephyr" ]; then
-        install -d ${D}${nonarch_base_libdir}/firmware
-        install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${D}${nonarch_base_libdir}/firmware/rproc-remote-context-fw
-    else
-        bbnote "${PN} do_install() have been skipped, because ${AMP_DEMO} is not covered by this recipe"
-    fi
+EXTRA_OECMAKE += "-DCONFIG_PIC64GX_RELOCATE_RESOURCE_TABLE=y"
+
+do_deploy() {
+    cp ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${DEPLOYDIR}/zephyr-amp-application.elf
 }
 
-FILES:${PN} += "/lib/firmware/"
-SYSROOT_DIRS += "/lib/firmware"
 INSANE_SKIP += "ldflags buildpaths"
 
-do_deploy[noexec] = "1"
+addtask deploy after do_install
 
 COMPATIBLE_MACHINE = "(pic64gx-curiosity-kit)"
