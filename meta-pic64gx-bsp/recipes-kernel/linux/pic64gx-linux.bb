@@ -11,7 +11,7 @@ SRC_URI:append:pic64gx-curiosity-kit = " \
 					"
 
 do_assemble_fitimage[depends] = "${@'dt-overlay-mchp:do_deploy' \
-                                  if "pic64gx-curiosity-kit-amp" in d.getVar('MACHINE') \
+                                  if "pic64gx-curiosity-kit" in d.getVar('MACHINE') \
                                   else ''}"
 
 do_deploy:append() {
