@@ -1,0 +1,54 @@
+From ac2d458ad51e8c205cfecc51d933a16764311cae Mon Sep 17 00:00:00 2001
+From: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
+Date: Wed, 18 Jun 2025 15:54:31 +0100
+Subject: [PATCH 2/2] configs: add defconfig for pic64gx curiosity kit in AMP
+ mode
+
+Create a defconfig file for the PIC64GX Curiosity Kit to be used in AMP mode
+
+Signed-off-by: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
+---
+ ...rochip_pic64gx_curiosity_kit_amp_defconfig | 31 +++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+ create mode 100644 configs/microchip_pic64gx_curiosity_kit_amp_defconfig
+
+diff --git a/configs/microchip_pic64gx_curiosity_kit_amp_defconfig b/configs/microchip_pic64gx_curiosity_kit_amp_defconfig
+new file mode 100644
+index 0000000000..156ed0113b
+--- /dev/null
++++ b/configs/microchip_pic64gx_curiosity_kit_amp_defconfig
+@@ -0,0 +1,31 @@
++CONFIG_RISCV=y
++CONFIG_SYS_MALLOC_LEN=0x800000
++CONFIG_SYS_MALLOC_F_LEN=0x2000
++CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
++CONFIG_CUSTOM_SYS_INIT_SP_ADDR=0x80200000
++CONFIG_ENV_SIZE=0x2000
++CONFIG_DEFAULT_DEVICE_TREE="pic64gx-curiosity-kit-amp"
++CONFIG_SYS_PROMPT="RISC-V # "
++CONFIG_OF_LIBFDT_OVERLAY=y
++CONFIG_SYS_LOAD_ADDR=0x80200000
++CONFIG_TARGET_MICROCHIP_PIC64GX_CURIOSITY=y
++CONFIG_ARCH_RV64I=y
++CONFIG_RISCV_SMODE=y
++CONFIG_FIT=y
++CONFIG_OF_BOARD_SETUP=y
++CONFIG_DISTRO_DEFAULTS=y
++CONFIG_DISPLAY_CPUINFO=y
++CONFIG_DISPLAY_BOARDINFO=y
++CONFIG_SYS_CBSIZE=256
++CONFIG_SYS_PBSIZE=282
++CONFIG_SYS_BOOTM_LEN=0x4000000
++CONFIG_CMD_UBI=y
++CONFIG_OVERWRITE_ETHADDR_ONCE=y
++CONFIG_SYS_RELOC_GD_ENV_ADDR=y
++CONFIG_BOOTP_SEND_HOSTNAME=y
++CONFIG_DM_MAILBOX=y
++CONFIG_MPFS_MBOX=y
++CONFIG_MISC=y
++CONFIG_MPFS_SYSCONTROLLER=y
++CONFIG_DM_MTD=y
++CONFIG_SYSRESET=y
+-- 
+2.39.5
+

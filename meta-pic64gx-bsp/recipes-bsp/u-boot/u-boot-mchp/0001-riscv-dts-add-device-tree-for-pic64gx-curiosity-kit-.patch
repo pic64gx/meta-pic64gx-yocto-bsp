@@ -1,18 +1,21 @@
-From cacda8a277158a5683d8d3568556b87bce7b7422 Mon Sep 17 00:00:00 2001
+From d358a9edb984f3918be86e8bc1ca640ac467db73 Mon Sep 17 00:00:00 2001
 From: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
-Date: Fri, 18 Oct 2024 23:33:40 +0100
-Subject: [PATCH] riscv: Add AMP support to PIC64GX
+Date: Wed, 18 Jun 2025 15:24:24 +0100
+Subject: [PATCH 1/2] riscv: dts: add device tree for pic64gx curiosity kit in
+ AMP mode
 
-Uart 2 and CPU 4 need to be disable, because they are used by context B
+Create a dts file for the PIC64GX Curiosity Kit to be used in AMP mode
+
+- Disable peripherals in U-boot that are used in context B (BM/RTOS)
+- Reserve memory for remote processor firmware, rpmsg ring buffers and
+  resource table
 
 Signed-off-by: Pierre-Henry Moussay <pierre-henry.moussay@microchip.com>
 ---
- arch/riscv/dts/Makefile                       |   2 +-
- arch/riscv/dts/pic64gx-curiosity-kit-amp.dts  | 118 ++++++++++++++++++
- ...rochip_pic64gx_curiosity_kit_amp_defconfig |  30 +++++
- 3 files changed, 149 insertions(+), 1 deletion(-)
+ arch/riscv/dts/Makefile                      |   2 +-
+ arch/riscv/dts/pic64gx-curiosity-kit-amp.dts | 148 +++++++++++++++++++
+ 2 files changed, 149 insertions(+), 1 deletion(-)
  create mode 100644 arch/riscv/dts/pic64gx-curiosity-kit-amp.dts
- create mode 100644 configs/microchip_pic64gx_curiosity_kit_amp_defconfig
 
 diff --git a/arch/riscv/dts/Makefile b/arch/riscv/dts/Makefile
 index 54c2768695..d635651440 100644
@@ -29,10 +32,10 @@ index 54c2768695..d635651440 100644
  dtb-$(CONFIG_TARGET_QEMU_VIRT) += qemu-virt32.dtb qemu-virt64.dtb
 diff --git a/arch/riscv/dts/pic64gx-curiosity-kit-amp.dts b/arch/riscv/dts/pic64gx-curiosity-kit-amp.dts
 new file mode 100644
-index 0000000000..b2e5387d72
+index 0000000000..e7629ce9fd
 --- /dev/null
 +++ b/arch/riscv/dts/pic64gx-curiosity-kit-amp.dts
-@@ -0,0 +1,118 @@
+@@ -0,0 +1,148 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/* Copyright (c) 2024 Microchip Technology Inc */
 +
@@ -72,6 +75,32 @@ index 0000000000..b2e5387d72
 +		#address-cells = <2>;
 +		#size-cells = <2>;
 +		ranges;
++
++		contextb_reserved: contextb_reserved@91c00000 {
++			reg = <0x0 0x91c00000 0x0 0x100000>;
++			no-map;
++		};
++
++		vdev0vring0: vdev0vring0@91d00000 {
++			reg = <0x0 0x91d00000 0x0 0x8000>;
++			no-map;
++		};
++
++		vdev0vring1: vdev0vring1@91d08000 {
++			reg = <0x0 0x91d08000 0x0 0x8000>;
++			no-map;
++		};
++
++		vdev0buffer: vdev0buff@91d10000 {
++			compatible = "shared-dma-pool";
++			reg = <0x0 0x91d10000 0x0 0x40000>;
++			no-map;
++		};
++
++		rsctable: rsc-table@91d50000 {
++			reg = <0x0 0x91d50000 0x0 0x1000>;
++			no-map;
++		};
 +
 +		hss: hss-buffer@bfc00000 {
 +			compatible = "shared-dma-pool";
@@ -148,45 +177,13 @@ index 0000000000..b2e5387d72
 +	status = "okay";
 +};
 +
++&mbox {
++	status = "okay";
++};
++
 +&syscontroller {
 +	status = "okay";
 +};
-diff --git a/configs/microchip_pic64gx_curiosity_kit_amp_defconfig b/configs/microchip_pic64gx_curiosity_kit_amp_defconfig
-new file mode 100644
-index 0000000000..b68605250a
---- /dev/null
-+++ b/configs/microchip_pic64gx_curiosity_kit_amp_defconfig
-@@ -0,0 +1,30 @@
-+CONFIG_RISCV=y
-+CONFIG_SYS_MALLOC_LEN=0x800000
-+CONFIG_SYS_MALLOC_F_LEN=0x2000
-+CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
-+CONFIG_CUSTOM_SYS_INIT_SP_ADDR=0x80200000
-+CONFIG_ENV_SIZE=0x2000
-+CONFIG_DEFAULT_DEVICE_TREE="pic64gx-curiosity-kit-amp"
-+CONFIG_SYS_PROMPT="RISC-V # "
-+CONFIG_SYS_LOAD_ADDR=0x80200000
-+CONFIG_TARGET_MICROCHIP_PIC64GX_CURIOSITY=y
-+CONFIG_ARCH_RV64I=y
-+CONFIG_RISCV_SMODE=y
-+CONFIG_FIT=y
-+CONFIG_DISTRO_DEFAULTS=y
-+CONFIG_DISPLAY_CPUINFO=y
-+CONFIG_DISPLAY_BOARDINFO=y
-+CONFIG_SYS_CBSIZE=256
-+CONFIG_SYS_PBSIZE=282
-+CONFIG_SYS_BOOTM_LEN=0x4000000
-+CONFIG_SYS_RELOC_GD_ENV_ADDR=y
-+CONFIG_BOOTP_SEND_HOSTNAME=y
-+CONFIG_DM_MTD=y
-+CONFIG_SYSRESET=y
-+CONFIG_CMD_MTDPARTS=y
-+CONFIG_MTDPARTS_DEFAULT="mtdparts=spi-nand0:2m(payload),128k(env),119m(rootfs)"
-+CONFIG_CMD_UBI=y
-+CONFIG_CMD_UBIFS=y
-+CONFIG_MTD_UBI_WL_THRESHOLD=4096
-+CONFIG_MTD_UBI_BEB_LIMIT=20
-+CONFIG_OF_LIBFDT_OVERLAY=y
 -- 
-2.30.2
+2.39.5
 

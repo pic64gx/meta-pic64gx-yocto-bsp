@@ -18,7 +18,8 @@ SRC_URI = "git://github.com/linux4microchip/u-boot-mchp.git;protocol=https;nobra
            "
 
 SRC_URI:append:pic64gx-curiosity-kit-amp = " \
-    file://0001-riscv-Add-AMP-support-to-PIC64GX.patch \
+    file://0001-riscv-dts-add-device-tree-for-pic64gx-curiosity-kit-.patch \
+    file://0002-configs-add-defconfig-for-pic64gx-curiosity-kit-in-A.patch \
     "
 
 DEPENDS += " python3-setuptools-native u-boot-mkenvimage-native"
