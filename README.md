@@ -1,3 +1,5 @@
+This repository is archived, please see: https://github.com/linux4microchip/meta-mchp
+
 # Microchip PIC64GX Yocto BSP
 
 Collection of OpenEmbedded/Yocto layers for PIC64GX.
